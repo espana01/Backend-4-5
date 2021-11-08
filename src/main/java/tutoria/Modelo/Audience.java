@@ -27,10 +27,11 @@ public class Audience implements Serializable {
        @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String name;
     private String owner; 
     private Integer capacity; 
     private String description;
-    private String name;
+    
     
     @ManyToOne
     @JoinColumn(name="categoryid")
@@ -51,6 +52,14 @@ public class Audience implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+    
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getOwner() {
@@ -76,15 +85,7 @@ public class Audience implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    
     public Categoria getCategory() {
         return category;
     }

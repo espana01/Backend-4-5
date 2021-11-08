@@ -17,59 +17,59 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ServiciosAudience {
-        @Autowired
+
+    @Autowired
     private AudienceRepositorio metodosCrud;
-    
-    public List<Audience> getAll(){
+
+    public List<Audience> getAll() {
         return metodosCrud.getAll();
     }
-    
-    public Optional<Audience> getAudience(int idAudience){
+
+    public Optional<Audience> getAudience(int idAudience) {
         return metodosCrud.getAudience(idAudience);
     }
-    
-    public Audience save(Audience audience){
-        if(audience.getId()==null){
+
+    public Audience save(Audience audience) {
+        if (audience.getId() == null) {
             return metodosCrud.save(audience);
-        }else{
-            Optional<Audience> evt=metodosCrud.getAudience(audience.getId());
-            if(evt.isEmpty()){
+        } else {
+            Optional<Audience> evt = metodosCrud.getAudience(audience.getId());
+            if (evt.isEmpty()) {
                 return metodosCrud.save(audience);
-            }else{
+            } else {
                 return audience;
             }
         }
     }
-    public Audience update(Audience audience){
-        if(audience.getId()!=null){
-            Optional<Audience> e=metodosCrud.getAudience(audience.getId());
-            if(!e.isEmpty()){
-                
-                if(audience.getOwner()!=null){
-                    e.get().setOwner(audience.getOwner());
-                }
-                if(audience.getCapacity()!=null){
-                    e.get().setCapacity(audience.getCapacity());
-                }
-                if(audience.getDescription()!=null){
-                    e.get().setDescription(audience.getDescription());
-                }
-                if(audience.getName()!=null){
+
+    public Audience update(Audience audience) {
+        if (audience.getId() != null) {
+            Optional<Audience> e = metodosCrud.getAudience(audience.getId());
+            if (!e.isEmpty()) {
+                if (audience.getName() != null) {
                     e.get().setName(audience.getName());
                 }
-                if(audience.getCategory()!=null){
+                if (audience.getOwner() != null) {
+                    e.get().setOwner(audience.getOwner());
+                }
+                if (audience.getCapacity() != null) {
+                    e.get().setCapacity(audience.getCapacity());
+                }
+                if (audience.getDescription() != null) {
+                    e.get().setDescription(audience.getDescription());
+                }
+                if (audience.getCategory() != null) {
                     e.get().setCategory(audience.getCategory());
                 }
                 metodosCrud.save(e.get());
                 return e.get();
-            }else{
+            } else {
                 return audience;
             }
-        }else{
+        } else {
             return audience;
         }
     }
-
 
     public boolean deleteAudience(int audienceId) {
         Boolean aBoolean = getAudience(audienceId).map(audience -> {
@@ -78,6 +78,5 @@ public class ServiciosAudience {
         }).orElse(false);
         return aBoolean;
     }
-    
-    
+
 }
